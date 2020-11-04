@@ -94,7 +94,7 @@ Let's have a look with following example to read student records from 'STUDENTS'
 In this example our Query will look like <b><i> `SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE` </i></b>  
 
 ### References:
-* [Spring-batch JdbcPagingItemReader] (https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JdbcPagingItemReader.html)
+* [Spring-batch JdbcPagingItemReader](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JdbcPagingItemReader.html)
 	
 
 
