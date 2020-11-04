@@ -8,10 +8,10 @@ Let's have a look with following example to read student records from 'STUDENTS'
 <ins>Student.Java</ins>
 
 ```sh
-public class Student {
-  private String id;
-  private String name;
-}
+ public class Student {
+   private String id;
+   private String name;
+ }
 
 ```
 
@@ -20,7 +20,7 @@ public class Student {
 <ins>StudentMapper.java</ins>
 
 ```sh
-public class StudentMapper implements RowMapper<Student>  {
+ public class StudentMapper implements RowMapper<Student>  {
 
     @Override
     public StudentMapper mapRow(final ResultSet rs, final int rowNum) {
@@ -28,7 +28,8 @@ public class StudentMapper implements RowMapper<Student>  {
        student.setId(rs.getString(“id”));
        student.setDonationType(rs.getString(“name”));
        return student;
-}
+    }  
+ }
 
 ```
 
@@ -90,7 +91,10 @@ public class StudentMapper implements RowMapper<Student>  {
 * <b><i>setSelectClause(String selectClause)</i></b> - SELECT clause part of SQL query string.  
 	
 * <b><i>setFromClause(String fromClause)</i></b> - FROM clause part of SQL query string.  
-In this example our Query will look like <b><i> `SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE` </i></b>
+In this example our Query will look like <b><i> `SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE` </i></b>  
+
+### References:
+* [Spring-batch JdbcPagingItemReader] https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JdbcPagingItemReader.html
 	
 
 
