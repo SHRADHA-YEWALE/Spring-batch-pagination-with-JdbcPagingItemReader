@@ -12,21 +12,24 @@ public class Student {
   private String id;
   private String name;
 }
+
 ```
+
 
 - The mapper class will map each row of data in the ResultSet.  
 <ins>StudentMapper.java</ins>
 
 ```sh
-public class StudentMapper implements RowMapper<Student> {
+public class StudentMapper implements RowMapper<Student>  {
+
     @Override
     public StudentMapper mapRow(final ResultSet rs, final int rowNum) {
-        Student student = new Student();
-        student.setId(rs.getString(“id”));
-        student.setDonationType(rs.getString(“name”));
-        return student;
-     }
-}  
+       Student student = new Student (); 
+       student.setId(rs.getString(“id”));
+       student.setDonationType(rs.getString(“name”));
+	return student;
+}
+
 ```
 
 - The main reader class  
@@ -53,7 +56,6 @@ public class StudentMapper implements RowMapper<Student> {
             Map<String, Object> parameters = new HashMap<>();
             parameters.put(“id”, student.getId());
             parameters.put(“name”, student.getName());
-
             reader.setParameterValues(parametersList);
             return reader;
         }
@@ -69,12 +71,21 @@ public class StudentMapper implements RowMapper<Student> {
         }
 
         private String getFromClause() {
-            return "( " + GET_STUDENT_INFO + ")" + " AS RESULT_TABLE "
-                    ;
-
+            return "( " + GET_STUDENT_INFO + ")" + " AS RESULT_TABLE ";
         }
     }
 ```
+
+<b><i>PagingQueryProvider</i><b> It executes the SQL built by the PagingQueryProvider to retrieve requested data. 
+The query is executed using paged requests of a size specified in setPageSize(int). The number of rows to retrieve at a time. pageSize is the number of rows to fetch per page.
+setFetchSize(int): Gives the JDBC driver a hint as to the number of rows that should be fetched from the database when more rows are needed for the ResultSet object. If the fetch size specified is zero, the JDBC driver ignores the value. It takes the number of rows to fetch.
+Additional pages are requested when needed as read () method is called, returning an object corresponding to current position.
+setSortKeys(Map<String, Order> sortKeys) : sortkey to use to sort and limit page content. It takes a map of sort columns as the key and boolean for ascending/descending
+On restart it uses the last sort key value to locate the first page to read (so it doesn't matter if the successfully processed items have been removed or modified). It is important to have a unique key constraint on the sort key to guarantee that no data is lost between executions.
+setSelectClause(String selectClause) : SELECT clause part of SQL query string
+setFromClause(String fromClause): FROM clause part of SQL query string
+In this example our Query will look like SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE
+
 
 
 
