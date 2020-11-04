@@ -5,7 +5,7 @@ In this post we will understand how to read the input data of batch job by using
 Let's have a look with following example to read student records from 'STUDENTS' table using pagination. 
 
 - This is the model class Student.  
-<ins>Student.Java</ins>
+<ins><b>Student.Java</b></ins>
 
 ```sh
  public class Student {
@@ -17,7 +17,7 @@ Let's have a look with following example to read student records from 'STUDENTS'
 
 
 - The mapper class will map each row of data in the ResultSet.  
-<ins>StudentMapper.java</ins>
+<ins><b>StudentMapper.java</b></ins>
 
 ```sh
  public class StudentMapper implements RowMapper<Student>  {
@@ -34,7 +34,7 @@ Let's have a look with following example to read student records from 'STUDENTS'
 ```
 
 - The main reader class  
-<ins>StudentDataReader.java</ins>
+<ins><b>StudentDataReader.java</b></ins>
 
 ```sh
  Public class StudentDataReader {
@@ -94,7 +94,7 @@ Let's have a look with following example to read student records from 'STUDENTS'
 In this example our Query will look like <b><i> `SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE` </i></b>  
 
 ### References:
-* [Spring-batch JdbcPagingItemReader] https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JdbcPagingItemReader.html
+* [Spring-batch JdbcPagingItemReader] (https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JdbcPagingItemReader.html)
 	
 
 
