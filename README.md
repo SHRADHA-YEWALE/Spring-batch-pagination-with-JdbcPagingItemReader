@@ -4,8 +4,8 @@ Retrieve database records using JdbcPagingItemReader in a paging fashion.
 In this post we will understand how to read the input data of batch job by using JdbcPagingItemReader. It significantly reduces the result set fetching time. 
 Let's have a look with following example to read student records from 'STUDENTS' table using pagination. 
 
-- This is the model class Student.
-<u>Student.Java</u>
+- This is the model class Student.  
+<ins>Student.Java</ins>
 
 ```sh
 public class Student {
@@ -14,7 +14,7 @@ public class Student {
 }
 ```
 
-- The mapper class will map each row of data in the ResultSet.
+- The mapper class will map each row of data in the ResultSet.  
 <ins>StudentMapper.java</ins>
 
 ```sh
