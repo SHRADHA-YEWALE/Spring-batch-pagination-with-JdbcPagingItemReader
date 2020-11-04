@@ -27,7 +27,7 @@ public class StudentMapper implements RowMapper<Student>  {
        Student student = new Student (); 
        student.setId(rs.getString(“id”));
        student.setDonationType(rs.getString(“name”));
-	return student;
+       return student;
 }
 
 ```
@@ -38,42 +38,42 @@ public class StudentMapper implements RowMapper<Student>  {
 ```sh
  Public class StudentDataReader {
 
-        @Autowired
-        private DataSource dataSource;
+    @Autowired
+    private DataSource dataSource;
         
-        private static final String GET_STUDENT_INFO = "SELECT * from STUDENTS where id = :id and name = :name ";
+    private static final String GET_STUDENT_INFO = "SELECT * from STUDENTS where id = :id and name = :name ";
         
-        public JdbcPagingItemReader<Student> getPaginationReader(Student student) {
+    public JdbcPagingItemReader<Student> getPaginationReader(Student student) {
 
-            final JdbcPagingItemReader<Student> reader = new JdbcPagingItemReader<>();
-            final StudentMapper studentMapper = new StudentMapper();
-            reader.setDataSource(dataSource);
-            reader.setFetchSize(100);
-            reader.setPageSize(100);
-            reader.setRowMapper(studentMapper);
-            reader.setQueryProvider(createQuery());
+       final JdbcPagingItemReader<Student> reader = new JdbcPagingItemReader<>();
+       final StudentMapper studentMapper = new StudentMapper();
+       reader.setDataSource(dataSource);
+       reader.setFetchSize(100);
+       reader.setPageSize(100);
+       reader.setRowMapper(studentMapper);
+       reader.setQueryProvider(createQuery());
 
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put(“id”, student.getId());
-            parameters.put(“name”, student.getName());
-            reader.setParameterValues(parametersList);
-            return reader;
-        }
+       Map<String, Object> parameters = new HashMap<>();
+       parameters.put(“id”, student.getId());
+       parameters.put(“name”, student.getName());
+       reader.setParameterValues(parametersList);
+       return reader;
+     }
         
-        private PostgresPagingQueryProvider createQuery() {
-            final Map<String, Order> sortKeys = new HashMap<>();
-            sortKeys.put(“id”, Order.ASCENDING);
-            final PostgresPagingQueryProvider queryProvider = new PostgresPagingQueryProvider();
-            queryProvider.setSelectClause("*");
-            queryProvider.setFromClause(getFromClause());
-            queryProvider.setSortKeys(sortKeys);
-            return queryProvider;
-        }
+     private PostgresPagingQueryProvider createQuery() {
+       final Map<String, Order> sortKeys = new HashMap<>();
+       sortKeys.put(“id”, Order.ASCENDING);
+       final PostgresPagingQueryProvider queryProvider = new PostgresPagingQueryProvider();
+       queryProvider.setSelectClause("*");
+       queryProvider.setFromClause(getFromClause());
+       queryProvider.setSortKeys(sortKeys);
+       return queryProvider;
+     }
 
-        private String getFromClause() {
-            return "( " + GET_STUDENT_INFO + ")" + " AS RESULT_TABLE ";
-        }
-    }
+     private String getFromClause() {
+        return "( " + GET_STUDENT_INFO + ")" + " AS RESULT_TABLE ";
+     }
+ }
 ```
 
 * <b><i>PagingQueryProvider</i></b> - It executes the SQL built by the PagingQueryProvider to retrieve requested data.  
@@ -90,7 +90,7 @@ public class StudentMapper implements RowMapper<Student>  {
 * <b><i>setSelectClause(String selectClause)</i></b> - SELECT clause part of SQL query string.  
 	
 * <b><i>setFromClause(String fromClause)</i></b> - FROM clause part of SQL query string.  
-In this example our Query will look like <b><i> `#059144`SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE </i></b>
+In this example our Query will look like <b><i> `SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE` </i></b>
 	
 
 
