@@ -79,6 +79,7 @@ public class StudentMapper implements RowMapper<Student>  {
 * <b><i>PagingQueryProvider</i></b> - It executes the SQL built by the PagingQueryProvider to retrieve requested data.  
 	
 * <b><i>setPageSize(int)</i></b> - The query is executed using paged requests of a size specified in setPageSize(int). The number of rows to retrieve at a time. pageSize is the number of rows to fetch per page.  
+> In the above example, it will fetch 100 rows at a time.  
 	
 * <b><i>setFetchSize(int)</i></b> - Gives the JDBC driver a hint as to the number of rows that should be fetched from the database when more rows are needed for the ResultSet object. If the fetch size specified is zero, the JDBC driver ignores the value. It takes the number of rows to fetch.  
 	
@@ -89,7 +90,7 @@ public class StudentMapper implements RowMapper<Student>  {
 * <b><i>setSelectClause(String selectClause)</i></b> - SELECT clause part of SQL query string.  
 	
 * <b><i>setFromClause(String fromClause)</i></b> - FROM clause part of SQL query string.  
-In this example our Query will look like <b><i>SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE </i></b>
+In this example our Query will look like <b><i> `#059144`SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE </i></b>
 	
 
 
