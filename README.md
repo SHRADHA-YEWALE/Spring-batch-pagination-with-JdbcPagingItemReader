@@ -91,7 +91,10 @@ Let's have a look with following example to read student records from 'STUDENTS'
 * <b><i>setSelectClause(String selectClause)</i></b> - SELECT clause part of SQL query string.  
 	
 * <b><i>setFromClause(String fromClause)</i></b> - FROM clause part of SQL query string.  
-In this example our query will look like ''' SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE '''  
+In this example our query will look like   
+```
+SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE 
+``` 
 
 ### References:
 * [Spring-batch JdbcPagingItemReader](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JdbcPagingItemReader.html)
