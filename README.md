@@ -1,5 +1,5 @@
 # JdbcPagingItemReader
-Retrieve database records using JdbcPagingItemReader in a paging fashion.
+It retrieves database records in a paging fashion.
 
 In this post we will understand how to read the input data of batch job by using JdbcPagingItemReader. It significantly reduces the result set fetching time. 
 Let's have a look with following example to read student records from 'STUDENTS' table using pagination. 
@@ -38,14 +38,13 @@ Let's have a look with following example to read student records from 'STUDENTS'
 
 ```sh
  Public class StudentDataReader {
-
+ 
     @Autowired
     private DataSource dataSource;
         
     private static final String GET_STUDENT_INFO = "SELECT * from STUDENTS where id = :id and name = :name ";
         
     public JdbcPagingItemReader<Student> getPaginationReader(Student student) {
-
        final JdbcPagingItemReader<Student> reader = new JdbcPagingItemReader<>();
        final StudentMapper studentMapper = new StudentMapper();
        reader.setDataSource(dataSource);
@@ -93,7 +92,7 @@ Let's have a look with following example to read student records from 'STUDENTS'
 * <b><i>setFromClause(String fromClause)</i></b> - FROM clause part of SQL query string.  
 In this example our query will look like   
 ```
-SELECT * (SELECT * from STUDENTS where id = :id and name = :name)  AS RESULT_TABLE 
+SELECT * (SELECT * from STUDENTS where id = :id and name = :name) AS RESULT_TABLE 
 ``` 
 
 ### References:
