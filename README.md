@@ -23,10 +23,10 @@ Let's have a look with following example to read student records from 'STUDENTS'
  public class StudentMapper implements RowMapper<Student>  {
 
     @Override
-    public StudentMapper mapRow(final ResultSet rs, final int rowNum) {
+    public Student mapRow(final ResultSet rs, final int rowNum) {
        Student student = new Student (); 
-       student.setId(rs.getString(“id”));
-       student.setDonationType(rs.getString(“name”));
+       student.setId(rs.getString("id"));
+       student.setName(rs.getString("name"));
        return student;
     }  
  }
@@ -37,40 +37,42 @@ Let's have a look with following example to read student records from 'STUDENTS'
 <ins><b>StudentDataReader.java</b></ins>
 
 ```sh
- Public class StudentDataReader {
- 
-    @Autowired
-    private DataSource dataSource;    
-    private static final String GET_STUDENT_INFO = "SELECT * from STUDENTS where id = :id and name = :name ";
-    public JdbcPagingItemReader<Student> getPaginationReader(Student student) {
-       final JdbcPagingItemReader<Student> reader = new JdbcPagingItemReader<>();
-       final StudentMapper studentMapper = new StudentMapper();
-       reader.setDataSource(dataSource);
-       reader.setFetchSize(100);
-       reader.setPageSize(100);
-       reader.setRowMapper(studentMapper);
-       reader.setQueryProvider(createQuery());
-       Map<String, Object> parameters = new HashMap<>();
-       parameters.put(“id”, student.getId());
-       parameters.put(“name”, student.getName());
-       reader.setParameterValues(parametersList);
-       return reader;
-     }
-        
-     private PostgresPagingQueryProvider createQuery() {
-       final Map<String, Order> sortKeys = new HashMap<>();
-       sortKeys.put(“id”, Order.ASCENDING);
-       final PostgresPagingQueryProvider queryProvider = new PostgresPagingQueryProvider();
-       queryProvider.setSelectClause("*");
-       queryProvider.setFromClause(getFromClause());
-       queryProvider.setSortKeys(sortKeys);
-       return queryProvider;
-     }
+ public class StudentDataReader {
 
-     private String getFromClause() {
+    @Autowired
+    private DataSource dataSource;
+
+    private static final String GET_STUDENT_INFO = "SELECT * from STUDENTS where id = :id and name = :name ";
+    
+    public JdbcPagingItemReader<Student> getPaginationReader(Student student) {
+        final JdbcPagingItemReader<Student> reader = new JdbcPagingItemReader<>();
+        final StudentMapper studentMapper = new StudentMapper();
+        reader.setDataSource(dataSource);
+        reader.setFetchSize(100);
+        reader.setPageSize(100);
+        reader.setRowMapper(studentMapper);
+        reader.setQueryProvider(createQuery());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("id", student.getId());
+        parameters.put("name", student.getName());
+        reader.setParameterValues(parameters);
+        return reader;
+    }
+
+    private PostgresPagingQueryProvider createQuery() {
+        final Map<String, Order> sortKeys = new HashMap<>();
+        sortKeys.put("id", Order.ASCENDING);
+        final PostgresPagingQueryProvider queryProvider = new PostgresPagingQueryProvider();
+        queryProvider.setSelectClause("*");
+        queryProvider.setFromClause(getFromClause());
+        queryProvider.setSortKeys(sortKeys);
+        return queryProvider;
+    }
+
+    private String getFromClause() {
         return "( " + GET_STUDENT_INFO + ")" + " AS RESULT_TABLE ";
-     }
- }
+    }
+}
 ```
 
 * <b><i>PagingQueryProvider</i></b> - It executes the SQL built by the PagingQueryProvider to retrieve requested data.  
