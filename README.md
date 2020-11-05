@@ -40,10 +40,8 @@ Let's have a look with following example to read student records from 'STUDENTS'
  Public class StudentDataReader {
  
     @Autowired
-    private DataSource dataSource;
-        
+    private DataSource dataSource;    
     private static final String GET_STUDENT_INFO = "SELECT * from STUDENTS where id = :id and name = :name ";
-        
     public JdbcPagingItemReader<Student> getPaginationReader(Student student) {
        final JdbcPagingItemReader<Student> reader = new JdbcPagingItemReader<>();
        final StudentMapper studentMapper = new StudentMapper();
@@ -52,7 +50,6 @@ Let's have a look with following example to read student records from 'STUDENTS'
        reader.setPageSize(100);
        reader.setRowMapper(studentMapper);
        reader.setQueryProvider(createQuery());
-
        Map<String, Object> parameters = new HashMap<>();
        parameters.put(“id”, student.getId());
        parameters.put(“name”, student.getName());
