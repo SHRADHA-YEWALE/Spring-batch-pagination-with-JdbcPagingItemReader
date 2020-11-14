@@ -7,7 +7,7 @@ In this post we will understand how to read the input data of batch job by using
 Let's have a look with following example to read student records from 'STUDENTS' table using pagination. 
 
 - This is the model class Student.  
-<ins><b>Student.Java</b></ins>
+<ins><b>Student.java</b></ins>
 
 ```sh
  public class Student {
