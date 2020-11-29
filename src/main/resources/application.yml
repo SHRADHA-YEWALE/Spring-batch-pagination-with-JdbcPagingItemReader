@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  batch:
+    job:
+      enabled: false
+    #if want batch tables
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+
+#deployment.type VM or PCF
+deployment.type: VM
+deployment.environment: DTF
+
+
+postgres:
+  datasource:
+    driverclass: org.postgresql.Driver
+    jdbc-url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: admin
+
